@@ -13,7 +13,10 @@ const Plot = db.define('plot', {
 const Vegetable = db.define('vegetable', {
   name: Sequelize.STRING,
   color: Sequelize.STRING,
-  planted_on: Sequelize.DATE,
+  planted_on: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 })
 
 
@@ -25,5 +28,10 @@ Plot.belongsToMany(Vegetable, {through: 'vegetable_plot'});
 Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'});
 
 
-module.exports = db;
+module.exports = {
+  db,
+  Plot,
+  Vegetable,
+  Gardener
+};
 
